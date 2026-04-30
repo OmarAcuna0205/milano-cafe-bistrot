@@ -1,23 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 import { useState, useEffect } from "react";
-import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { useLanguage } from "@/context/LanguageContext";
+import { motion } from "framer-motion";
 import { AnimatePresence } from "motion/react";
-
-const navLinks = [
-    { label: "Inicio", href: "#inicio" },
-    { label: "Menú", href: "#menu" },
-    { label: "Novedades", href: "#novedades" },
-    { label: "Sobre Nosotros", href: "#sobre-nosotros" },
-    { label: "Contacto", href: "#contacto" },
-];
+import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { dictionaries } from "@/locales/dictionaries";
 
 export default function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const { language, setLanguage } = useLanguage();
+    const navLinks = dictionaries[language].nav;
 
     useEffect(() => {
         const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -25,11 +20,20 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => { document.body.style.overflow = "unset"; };
+    }, [isOpen]);
+
     return (
 
         <nav className={`fixed flex items-center justify-between w-full px-8 py-4 z-50 duration-300 transition-colors ${isScrolled ? "bg-espresso/95" : "bg-transparent"}`} >
 
-            <a href="#inicio" className="text-gold font-display text-5xl md:text-foreground tracking-wider mt-1.5 md:hover:text-gold duration-300 transition-colors" >
+            <a href="#inicio" className="text-gold font-display text-5xl md:text-foreground tracking-wider leading-none md:hover:text-gold duration-300 transition-colors" >
                 Milano
             </a>
 
@@ -42,12 +46,47 @@ export default function Navbar() {
                         </a>
                     </li>
                 ))}
+
+                <li className="hidden md:flex items-center gap-2">
+
+                    <button onClick={() => setLanguage("ES")} className={`relative uppercase transition-colors duration-300 ${language === "ES" ? "text-gold" : "text-foreground hover:text-gold"}`}
+                    >ES
+                        {language === "ES" && (
+                            <motion.span layoutId="active-lang" className="absolute -bottom-0.5 left-0 w-full h-px bg-gold"
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }} />
+                        )}</button>
+
+                    <span className="text-foreground text-lg">/</span>
+
+                    <button onClick={() => setLanguage("EN")} className={`relative uppercase transition-colors duration-300 ${language === "EN" ? "text-gold" : "text-foreground hover:text-gold"}`}
+                    >EN
+                        {language === "EN" && (
+                            <motion.span layoutId="active-lang" className="absolute -bottom-0.5 left-0 w-full h-px bg-gold"
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }} />
+                        )}</button>
+
+                </li>
+
             </ul>
 
-            <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-                <ListIcon size={32} className="text-gold duration-300 transition-colors" />
-            </button>
+            <div className="md:hidden flex items-center gap-4">
 
+                <div className="flex items-center justify-center">
+                    <button onClick={() => setLanguage("ES")} className={`relative text-lg uppercase transition-colors duration-300 ${language === "ES" ? "text-gold" : "text-foreground"}`}
+                    >ES</button>
+
+                    <span className="text-cream/30 text-2xl">/</span>
+
+                    <button onClick={() => setLanguage("EN")} className={`relative text-lg uppercase transition-colors duration-300 ${language === "EN" ? "text-gold" : "text-foreground"}`}
+                    >EN</button>
+
+                </div>
+
+                <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+                    <ListIcon size={32} className="text-gold duration-300 transition-colors" />
+                </button>
+
+            </div>
 
             <AnimatePresence>
                 {isOpen && (
@@ -58,8 +97,8 @@ export default function Navbar() {
                         exit={{ x: "100%" }}
                         transition={{ duration: 0.5, ease: "easeOut" }}>
 
-                        <button className="self-end text-cream font-bold">
-                            <XIcon size={32} onClick={() => setIsOpen(false)} />
+                        <button onClick={() => setIsOpen(false)} className="self-end text-cream font-bold">
+                            <XIcon size={32} />
                         </button>
 
                         <ul className="flex flex-col mt-8">
@@ -79,10 +118,7 @@ export default function Navbar() {
 
                         </ul>
 
-                        <p className="text-cream text-xs mt-auto">Chihuahua, Chihuahua MX</p>
-
                     </motion.div>
-
 
                 )}
 

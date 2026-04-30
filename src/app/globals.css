@@ -23,7 +23,7 @@
 }
 
 body {
-  background: var(--cream);
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-cormorant), Georgia, serif;
 }

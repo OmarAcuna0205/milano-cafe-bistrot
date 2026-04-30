@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Great_Vibes, Cormorant_Garamond } from "next/font/google";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 
@@ -31,10 +32,12 @@ export default function RootLayout({
       lang="es"
       className={`${greatVibes.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
-      </body>
+      <LanguageProvider>
+        <body className="min-h-full flex flex-col">
+          <Navbar />
+          {children}
+        </body>
+      </LanguageProvider>
     </html>
   );
 }
