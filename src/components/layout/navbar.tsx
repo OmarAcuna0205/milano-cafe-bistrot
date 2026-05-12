@@ -34,7 +34,7 @@ export default function Navbar() {
 
         <nav className={`fixed flex items-center justify-between w-full px-8 py-4 z-50 duration-300 transition-colors ${isScrolled ? "bg-espresso/95" : "bg-transparent"}`} >
 
-            <a href="#inicio" className="text-gold text-5xl md:text-foreground tracking-wider leading-none md:hover:text-gold duration-300 transition-colors" >
+            <a href="#inicio" className="text-gold text-4xl md:text-foreground tracking-wider leading-none md:hover:text-gold duration-300 transition-colors" >
                 MILANO
             </a>
 

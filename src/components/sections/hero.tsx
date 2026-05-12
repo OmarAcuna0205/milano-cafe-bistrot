@@ -24,12 +24,12 @@ export default function Hero() {
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeInOut", delay: 0.25 }}>
-                    <img src="/images/logo.png" alt="Logo" className="h-35 md:h-50 w-auto" />
+                    <img src="/images/logo.png" alt="Logo" className="h-35 md:h-50 mr-7.5 w-auto" />
                 </motion.h1>
 
                 <div className="h-1 w-24 md:w-32 bg-gold mb-10" />
 
-                <motion.a href="#menu" className="bg-gold md:bg-transparent text-espresso md:text-gold border-2 border-gold  text-xl uppercase px-8 py-2 hover:bg-gold hover:text-espresso transition-all duration-300"
+                <motion.a href="#menu" className="bg-gold text-espresso border-2 border-gold  text-xl uppercase px-8 py-2 hover:-translate-y-1 transition-all duration-300"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeInOut", delay: 0.75 }}>
