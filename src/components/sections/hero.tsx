@@ -24,7 +24,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeInOut", delay: 0.25 }}>
-                    <img src="/images/logo.png" alt="Logo" className="h-35 md:h-50 mr-85 md:mr-7.5" />
+                    <img src="/images/logo.png" alt="Logo" className="h-32 md:h-52 mr-3.5 md:mr-7.5" />
                 </motion.h1>
 
                 <div className="h-1 w-24 md:w-32 bg-gold mb-10" />
